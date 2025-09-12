@@ -10,7 +10,6 @@ Complementado con el curso de: MoureDev
 """
 
 # Creando variables (ejercicio nivel 1)
-from math import prod
 import math
 
 
