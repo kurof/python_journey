@@ -1,0 +1,4 @@
+Hola, me llamo Fanny Gro
+Tengo 28 años
+Estoy repasando Python!
+También puedo usar Java :D
