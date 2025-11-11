@@ -64,6 +64,7 @@ Si queremos obtener información de un paquete instalado ponemos:
     - Usamos los modulos sin problema
 
 Nota: creo que por lo pronto no haré algo de instalación de estos paquetes.
+Nota 2: Sí hice la parte del paquete
 """
 
 #### --> Llamando a paquete que hemos hecho
