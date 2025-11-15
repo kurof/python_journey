@@ -43,7 +43,10 @@ Tutoriales: MoureDev
 
 # importaciones
 from collections import Counter
+from genericpath import isfile
+from itertools import count
 import json
+import os
 import re
 
 # Haciendo función para contar palabras
@@ -178,6 +181,14 @@ for country_line in populated_countries:
 ## --> Extrae todos las direcciones de email del archivo email_exchange_big.txt
 # para leer el archivo
 def reading_txt(archive):
+    """Devuelve el contenido de un archivo de texto (.txt).
+
+    Args:
+        archive (str): Ruta del archivo txt
+
+    Returns:
+        IO stream: Información del texto que se ha procesado.
+    """
     with open(archive, "r", encoding="utf-8") as txt_content:
         return txt_content.read()
     
@@ -195,3 +206,52 @@ def extracting_emails(archive_path):
 
 txt_path = "challenge_exercises/email_exchanges_big.txt"
 print(extracting_emails(txt_path))
+
+
+## --> Encuentra las palabras más comunes en el lenguaje inglés. Llama a una función
+#      find_most_common_words, que tome el texto a procesar y el top a mostrar
+#      Debe regresar una lista de tuplas! (esta fue engañosa porque la verdad no había texto)
+def find_most_common_words(text_or_path, n : int):
+    """Encuentra las palabras más comunes en un texto o archivo.
+    
+    Args:
+        text_or_path (str): Puede ser texto directo o ruta a archivo .txt
+        n (int): Cantidad de palabras más comunes a devolver
+    
+    Returns:
+        list: Lista de tuplas (conteo, palabra) ordenadas por frecuencia
+    """
+    # revisando si text_or_path es solo texto o una ruta de archivo
+    if os.path.isfile(text_or_path): 
+        text = reading_txt(text_or_path) # leyendo archivo
+    else:
+        text = text_or_path
+
+    # haciendo la lista de tuplas (se me prendió el foco lol)
+    common_words = [
+        # ponemos el contador con count(word) y la palabra contada
+        (text.count(word), word)
+        # recorremos elementos (word) de text
+        for word in set(text)
+    ]
+
+    # agregando a lista
+    common_words = text.lower().split()
+
+    # contando elementos y poniendo los más comunes
+    # y regresamos las n más comunes
+    return Counter(common_words).most_common(n)
+
+# sample_text = "challenge_exercises/stop_words.txt" # ejemplo de uso
+
+
+## --> Usa la función find_most_frequent_words para analizar los txt de speeches!
+#      Nota: quizás haya que cambiar la función de find_most_common
+# print(f"Palabras frecuentes en archivo Obama: \n{find_most_common_words("challenge_exercises/obama_speech.txt",10)}")
+# print(f"Palabras comunes en discurso michelle: \n{find_most_common_words("challenge_exercises/michelle_obama_speech.txt", 10)}")
+# print(f"Palabras frec en donald discurso: \n{find_most_common_words("challenge_exercises/donald_speech.txt", 10)}")
+# print(f"Palabras frec en melania discurso: \n{find_most_common_words("challenge_exercises/melina_trump_speech.txt", 10)}")
+
+## --> Palabras más repetidas en el archivo de romeo_and_juliet
+r_and_j = "challenge_exercises/romeo_and_juliet.txt"
+print(f"Palabras + usadas en Romeo y Julieta: \n{find_most_common_words(r_and_j, 10)}")
